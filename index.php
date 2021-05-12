@@ -55,6 +55,7 @@ session_start();
 						while ($row = $result->fetch_assoc()) {
 							// checking password is correct or not
 							if ($row["password"] == $password) {
+								session_destroy();
 								session_start();
 								$_SESSION["email"] = $email;
 								header('location: dashboard.php');

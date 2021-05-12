@@ -18,6 +18,8 @@ html, body {
 	user-select: none;
 }
 
+/* For Login/Register Page */
+
 .heading {
 	top: 10px;
 	position: absolute;
@@ -34,8 +36,6 @@ html, body {
 .heading h2 {
 	margin: 0;
 }
-
-/* For Login Page */
 
 .login {
 	display: flex;
@@ -129,4 +129,41 @@ input[type="radio"] {
 	display: flex;
 	height: 20px;
 	width: 20px;
+}
+
+/* For Dashboard Page */
+
+.container {
+	border-radius: 20px;
+	background-color: darksalmon;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.container>div {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.container>div>div {
+	width: 100%;
+	background-color: rgb(99, 172, 111);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 5px;
+}
+
+.container>div>div>span:first-child {
+	float: left;
+	font-weight: bold;
+}
+
+.container>div>div>span:last-child {
+	float: right;
 }

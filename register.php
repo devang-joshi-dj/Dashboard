@@ -111,7 +111,7 @@
 			<label for="maritalStatus">Marital Status</label>
 			<div class="radio">
 				<input type="radio" name="maritalStatus" value="Single"><span>Single</span>
-				<input type="radio" name="maritalStatus" value="'Committed'"><span>Committed</span>
+				<input type="radio" name="maritalStatus" value="Committed"><span>Committed</span>
 				<input type="radio" name="maritalStatus" value="Married"><span>Married</span>
 			</div>
 			<span class="error"><?php echo $maritalStatusErr; ?></span>

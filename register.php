@@ -32,6 +32,23 @@
 			$emailErr = "Email is required";
 		} else {
 			$email = $_POST['email'];
+			if ($tableExists) {
+				$sql = "SELECT email FROM userinfo where email='" . $email . "'";
+				$result = $conn->query($sql);
+
+				if ($result->num_rows > 0) {
+					// output data of each row
+					while ($row = $result->fetch_assoc()) {
+						if ($email == $row["email"]) {
+							$emailErr = "Email already exists";
+						}
+					}
+				} else {
+					echo "<div class='error'>Something Went Wrong</div>";
+				}
+			} else {
+				echo "<div class='error'>Something Went Wrong</div>";
+			}
 		}
 
 		// checking if password is empty
@@ -60,7 +77,11 @@
 		}
 
 		// checking if email and password are not empty
-		if ($name && $email && $password && $gender && $maritalStatus) {
+		if (
+			$name && $email && $password && $gender && $maritalStatus &&
+			empty($nameErr) && empty($emailErr) && empty($passwordErr) &&
+			empty($genderErr) && empty($maritalStatusErr)
+		) {
 			$sql = "
 			INSERT INTO userinfo
 			(name, email, password, gender, marital_status)
@@ -73,8 +94,6 @@
 				session_start();
 				$_SESSION["message"] = "You are Successfully Registered";
 				header('location: index.php');
-			} else {
-				echo "<span class='error'>Something Went Wrong</span>";
 			}
 		}
 	}

@@ -23,7 +23,7 @@ session_start();
 	if (isset($_SESSION["email"])) {
 		include 'db.php';
 		if ($tableExists) {
-			$sql = "SELECT name, gender, marital_status FROM userinfo";
+			$sql = "SELECT name, gender, marital_status FROM userinfo where email = '" . $_SESSION["email"] . "'";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {

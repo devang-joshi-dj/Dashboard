@@ -54,11 +54,11 @@ session_start();
 						// output data of each row
 						while ($row = $result->fetch_assoc()) {
 							// checking password is correct or not
-							if ($row["password"] == $password) {
+							if ($row['password'] == $password) {
 								session_destroy();
 								session_start();
-								$_SESSION["email"] = $email;
-								$_SESSION["edit"] = "";
+								$_SESSION['email'] = $email;
+								$_SESSION['edit'] = "";
 								header('location: dashboard.php');
 							} else {
 								$passwordErr = "Password is wrong";
@@ -81,8 +81,8 @@ session_start();
 	</div>
 
 	<?php
-	if (isset($_SESSION["message"])) {
-		echo "<div class='success'>" . $_SESSION["message"] . "</div>";
+	if (isset($_SESSION['message'])) {
+		echo "<div class='success'>" . $_SESSION['message'] . "</div>";
 		session_unset();
 		session_destroy();
 	}
@@ -90,7 +90,7 @@ session_start();
 
 	<div class="login">
 		<h3>Login</h3>
-		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+		<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 			<label for="email">Email</label>
 			<input type="text" name="email" value="<?php echo (isset($email)) ? $email : ''; ?>" />
 			<span class="error"><?php echo $emailErr; ?></span>

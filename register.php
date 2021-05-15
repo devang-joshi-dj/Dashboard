@@ -92,7 +92,8 @@
 			// checking if table exists
 			if ($tableExists && $conn->query($sql) === TRUE) {
 				session_start();
-				$_SESSION["message"] = "You are Successfully Registered";
+				$_SESSION['message'] = "You are Successfully Registered";
+				$conn->close();
 				header('location: index.php');
 			}
 		}
@@ -106,7 +107,7 @@
 
 	<div class="login">
 		<h3>Register</h3>
-		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+		<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 			<label for="name">Name</label>
 			<input type="name" name="name" value="<?php echo (isset($name)) ? $name : ''; ?>" />
 			<span class="error"><?php echo $nameErr; ?></span>

@@ -25,8 +25,31 @@ session_start();
 
 	if (isset($_SESSION['email'])) {
 		include 'db.php';
+
+		if (isset($_POST['changeValue']) && !empty($_POST['changeValue'])) {
+			$changeValue = $_POST['changeValue'];
+			$sqlValue = "";
+			if ($_POST['columnName'] == "name") {
+				$sqlValue = "name";
+			}
+			if ($_POST['columnName'] == "maritalStatus") {
+				$sqlValue = "marital_status";
+			}
+
+			$sql = "UPDATE userinfo SET " . $sqlValue . " = '" . $changeValue .
+				"' WHERE email = '" . $_SESSION['email'] . "';";
+
+			if ($conn->query($sql) === TRUE) {
+				$_SESSION['edit'] = "";
+			} else {
+				$changeValueErr = $conn->error;
+			}
+		} else {
+			$changeValueErr = "Value is empty";
+		}
+
 		if ($tableExists) {
-			$sql = "SELECT name, gender, marital_status FROM userinfo where email = '" . $_SESSION["email"] . "'";
+			$sql = "SELECT name, gender, marital_status FROM userinfo where email = '" . $_SESSION['email'] . "'";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -46,7 +69,7 @@ session_start();
 		session_unset();
 		session_destroy();
 		session_start();
-		$_SESSION["message"] = "You were redirected back to the home page";
+		$_SESSION['message'] = "You were redirected back to the home page";
 		header('location: index.php');
 	}
 
@@ -56,13 +79,13 @@ session_start();
 		session_unset();
 		session_destroy();
 		session_start();
-		$_SESSION["message"] = "You are Successfully Logged Out";
+		$_SESSION['message'] = "You are Successfully Logged Out";
 		header('location: index.php');
 	}
 
 	function close()
 	{
-		$_SESSION["edit"] = "";
+		$_SESSION['edit'] = "";
 	}
 
 	if (array_key_exists('logout', $_POST)) {
@@ -70,16 +93,11 @@ session_start();
 	}
 
 	if (array_key_exists('edit', $_POST)) {
-		$_SESSION["edit"] = "true";
+		$_SESSION['edit'] = "true";
 	}
 
 	if (array_key_exists('close', $_POST)) {
-		$_SESSION["edit"] = "";
-	}
-
-	if (isset($_POST["changeValue"]) && !empty($_POST["changeValue"])) {
-		$changeValue = $_POST["changeValue"];
-		echo $changeValue;
+		$_SESSION['edit'] = "";
 	}
 	?>
 
@@ -89,7 +107,7 @@ session_start();
 
 	<div class="container">
 		<div class="editContainer">
-			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 				<input type="submit" name="edit" value="Edit" />
 			</form>
 		</div>
@@ -101,7 +119,7 @@ session_start();
 				</div>
 				<div class="email">
 					<span>Email:</span>
-					<span><?php echo $_SESSION["email"]; ?></span>
+					<span><?php echo $_SESSION['email']; ?></span>
 				</div>
 			</div>
 			<div class="column2">
@@ -117,27 +135,29 @@ session_start();
 		</div>
 	</div>
 
-	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+	<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 		<input type="submit" name="logout" value="Log Out" />
 	</form>
 
 	<?php
-	if (!empty($_SESSION["edit"])) { ?>
+	if (!empty($_SESSION['edit'])) { ?>
 		<div class="editPanel">
 			<div class="closeContainer">
-				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 					<input type="submit" name="close" value="Close" />
 				</form>
 			</div>
-			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 				<div class="editSection">
-					<select name="column" id="column">
+					<select name="columnName" id="column">
 						<option value="name">Name</option>
 						<option value="maritalStatus">Marital Status</option>
-						<input type="text" name="changeValue" value="" />
 					</select>
+					<input type="text" name="changeValue" value="" />
 				</div>
-				<?php echo $changeValueErr; ?>
+				<div class="editError">
+					<span class="error"><?php echo $changeValueErr; ?></span>
+				</div>
 				<input type="submit" name="change" value="Change" />
 			</form>
 		</div>

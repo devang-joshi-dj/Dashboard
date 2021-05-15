@@ -138,12 +138,36 @@ input[type="radio"] {
 	background-color: darksalmon;
 	padding: 10px;
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.editContainer {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.editContainer>form, .closeContainer>form {
+	padding: 0;
+	margin: 0;
+}
+
+.editContainer>form>input[type="submit"], .closeContainer>form>input[type="submit"] {
+	margin: 0;
+	background-color: white;
+}
+
+.infoContainer {
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
 
-.container>div {
+.infoContainer>div {
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -151,7 +175,7 @@ input[type="radio"] {
 	align-items: center;
 }
 
-.container>div>div {
+.infoContainer>div>div {
 	width: 100%;
 	background-color: rgb(99, 172, 111);
 	border-radius: 10px;
@@ -159,11 +183,41 @@ input[type="radio"] {
 	margin: 5px;
 }
 
-.container>div>div>span:first-child {
+.infoContainer>div>div>span:first-child {
 	float: left;
 	font-weight: bold;
 }
 
-.container>div>div>span:last-child {
+.infoContainer>div>div>span:last-child {
 	float: right;
+}
+
+.editPanel {
+	border-radius: 20px;
+	background-color: antiquewhite;
+	padding: 10px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.closeContainer {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.editSection {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#column {
+	margin-right: 5px;
 }

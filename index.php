@@ -58,6 +58,7 @@ session_start();
 								session_destroy();
 								session_start();
 								$_SESSION["email"] = $email;
+								$_SESSION["edit"] = "";
 								header('location: dashboard.php');
 							} else {
 								$passwordErr = "Password is wrong";

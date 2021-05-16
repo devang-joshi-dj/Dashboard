@@ -74,6 +74,12 @@ session_start();
 					}
 				}
 
+				// checking the column name and assigning sqlValue accordingly
+				if ($columnName == "password") {
+					$sqlValue = "password";
+					$validity = true;
+				}
+
 				// checking if everything is ok and executing update sql command accordingly
 				if ($validity) {
 					$sql = "UPDATE userinfo SET " . $sqlValue . " = '" . $changeValue .
@@ -85,6 +91,8 @@ session_start();
 						if ($columnName == "email") {
 							$_SESSION['email'] = $changeValue;
 						}
+
+						echo "Updated";
 					} else {
 						$changeValueErr = "Something went wrong";
 					}
@@ -204,6 +212,7 @@ session_start();
 						<option value="name">Name</option>
 						<option value="email">Email</option>
 						<option value="maritalStatus">Marital Status</option>
+						<option value="password">Password</option>
 					</select>
 					<input type="text" name="changeValue" value="" />
 				</div>

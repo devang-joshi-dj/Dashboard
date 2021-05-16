@@ -26,26 +26,28 @@ session_start();
 	if (isset($_SESSION['email'])) {
 		include 'db.php';
 
-		if (isset($_POST['changeValue']) && !empty($_POST['changeValue'])) {
-			$changeValue = $_POST['changeValue'];
-			$sqlValue = "";
-			if ($_POST['columnName'] == "name") {
-				$sqlValue = "name";
-			}
-			if ($_POST['columnName'] == "maritalStatus") {
-				$sqlValue = "marital_status";
-			}
+		if (isset($_POST['changeValue'])) {
+			if (!empty($_POST['changeValue'])) {
+				$changeValue = $_POST['changeValue'];
+				$sqlValue = "";
+				if ($_POST['columnName'] == "name") {
+					$sqlValue = "name";
+				}
+				if ($_POST['columnName'] == "maritalStatus") {
+					$sqlValue = "marital_status";
+				}
 
-			$sql = "UPDATE userinfo SET " . $sqlValue . " = '" . $changeValue .
-				"' WHERE email = '" . $_SESSION['email'] . "';";
+				$sql = "UPDATE userinfo SET " . $sqlValue . " = '" . $changeValue .
+					"' WHERE email = '" . $_SESSION['email'] . "';";
 
-			if ($conn->query($sql) === TRUE) {
-				$_SESSION['edit'] = "";
+				if ($conn->query($sql) === TRUE) {
+					$_SESSION['edit'] = "";
+				} else {
+					$changeValueErr = "Something went wrong";
+				}
 			} else {
-				$changeValueErr = $conn->error;
+				$changeValueErr = "Value is empty";
 			}
-		} else {
-			$changeValueErr = "Value is empty";
 		}
 
 		if ($tableExists) {
